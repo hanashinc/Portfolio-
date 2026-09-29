@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>HANASHIN — The Art Room</title>
+
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+    --wall: #d9d8d1;
+    --ink: #242421;
+    --red: #d01d12;
+    --paper: #eeeDE6;
+    --muted: #686761;
+    --line: #aaa9a2;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background: var(--wall);
+    color: var(--ink);
+    font-family: "JetBrains Mono", monospace;
+    overflow-x: hidden;
+}
+
+/* NAVIGATION */
+
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 40;
+    padding: 18px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(var(--wall), transparent);
+    font-size: 10px;
+    letter-spacing: .12em;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--ink);
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 3px;
+}
+
+nav .room {
+    color: var(--red);
+}
+
+/* INTRO */
+
+.intro {
+    min-height: 100vh;
+    padding: 120px 7vw 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+}
+
+.number {
+    font-size: 11px;
+    color: var(--red);
+    letter-spacing: .18em;
+}
+
+.intro h1 {
+    font-family: "Chakra Petch";
+    font-size: clamp(70px, 15vw, 210px);
+    line-height: .76;
+    letter-spacing: -.08em;
+    margin: 20px 0;
+    transform: skewX(-8deg);
+    color: var(--red);
+}
+
+.intro p {
+    max-width: 650px;
+    font-size: 12px;
+    line-height: 1.8;
+    color: var(--muted);
+}
+
+.enter {
+    position: absolute;
+    bottom: 38px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10px;
+    letter-spacing: .15em;
+}
+
+/* GALLERY */
+
+.gallery {
+    padding: 140px 7vw 200px;
+    min-height: 100vh;
+}
+
+.gallery-title {
+    font-size: 10px;
+    letter-spacing: .14em;
+    color: var(--muted);
+    margin-bottom: 80px;
+}
+
+.art-wall {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 120px 8vw;
+    perspective: 1200px;
+}
+
+.frame {
+    background: var(--paper);
+    padding: 16px 16px 13px;
+    box-shadow:
+        0 28px 38px rgba(0,0,0,.19),
+        0 5px 8px rgba(0,0,0,.12);
+    transition: transform .4s ease;
+}
+
+.frame:nth-child(even) {
+    transform: rotate(2deg);
+}
+
+.frame:nth-child(odd) {
+    transform: rotate(-2deg);
+}
+
+.frame:hover {
+    transform:
+        translateY(-12px)
+        rotate(0deg)
+        scale(1.02);
+}
+
+.frame img {
+    width: 100%;
+    display: block;
+    cursor: pointer;
+}
+
+.label {
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    gap: 8px;
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid var(--line);
+    font-size: 9px;
+}
+
+.label > span {
+    color: var(--red);
+    font-weight: 700;
+}
+
+.label strong {
+    display: block;
+    font-family: "Chakra Petch";
+    font-size: 15px;
+    text-transform: uppercase;
+}
+
+.label small {
+    display: block;
+    color: var(--muted);
+    font-size: 8px;
+    line-height: 1.5;
+    margin-top: 3px;
+}
+
+/* OUTRO */
+
+.outro {
+    min-height: 80vh;
+    padding: 120px 7vw;
+    display: flex;
+    align-items: center;
+    border-top: 1px solid var(--line);
+}
+
+.outro h2 {
+    margin: 0;
+    font-family: "Chakra Petch";
+    font-size: clamp(45px, 8vw, 120px);
+    line-height: .85;
+    letter-spacing: -.06em;
+}
+
+.outro em {
+    color: var(--red);
+    font-style: normal;
+}
+
+.outro p {
+    font-size: 11px;
+    line-height: 1.8;
+    max-width: 530px;
+    margin-top: 35px;
+    color: var(--muted);
+}
+
+/* FOOTER */
+
+footer {
+    padding: 28px 7vw;
+    display: flex;
+    justify-content: space-between;
+    font-size: 9px;
+    color: var(--muted);
+    border-top: 1px solid var(--line);
+}
+
+footer a {
+    color: var(--ink);
+}
+
+/* MOBILE */
+
+@media(max-width:700px) {
+
+    .intro {
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+
+    .gallery {
+        padding: 100px 24px;
+    }
+
+    .art-wall {
+        grid-template-columns: 1fr;
+        gap: 70px;
+    }
+
+    .frame,
+    .frame:nth-child(even),
+    .frame:nth-child(odd) {
+        transform: none;
+    }
+
+    footer {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+<nav>
+
+<a href="index.html">
+← HANASHIN / PORTFOLIO
+</a>
+
+<span class="room">
+ROOM 01 — VISUAL ARCHIVE
+</span>
+
+</nav>
+
+
+<section class="intro">
+
+<div class="number">
+HANASHIN / PRIVATE COLLECTION / 001
+</div>
+
+<h1>
+THE<br>
+ART<br>
+ROOM.
+</h1>
+
+<p>
+Welcome to the part of the portfolio that existed before the portfolio.
+Paper, ink, paint, handwriting, strange ideas and things that were too
+interesting to leave inside a sketchbook.
+</p>
+
+<div class="enter">
+SCROLL TO WALK THROUGH THE ROOM ↓
+</div>
+
+</section>
+
+
+<section class="gallery">
+
+<div class="gallery-title">
+SELECTED WORKS / WALK SLOWLY / LOOK CLOSELY
+</div>
+
+
+<div class="art-wall">
+
+
+<!-- ARTWORK 01 -->
+
+<article class="frame">
+
+<img src="art/art01.jpg"
+     alt="Cosmic Thoughts">
+
+<div class="label">
+
+<span>01</span>
+
+<div>
+
+<strong>
+Cosmic Thoughts
+</strong>
+
+<small>
+Ink, wash and handwritten storytelling.
+</small>
+
+</div>
+
+</div>
+
+</article>
+
+
+
+<!-- ARTWORK 02 -->
+
+<article class="frame">
+
+<img src="art/art02.jpg"
+     alt="One Blink">
+
+<div class="label">
+
+<span>02</span>
+
+<div>
+
+<strong>
+One Blink
+</strong>
+
+<small>
+Mixed-media illustration around time, memory and movement.
+</small>
+
+</div>
+
+</div>
+
+</article>
+
+
+
+<!-- ARTWORK 03 -->
+
+<article class="frame">
+
+<img src="art/art03.jpg"
+     alt="My Talent">
+
+<div class="label">
+
+<span>03</span>
+
+<div>
+
+<strong>
+My Talent
+</strong>
+
+<small>
+Hand lettering and circular composition.
+</small>
+
+</div>
+
+</div>
+
+</article>
+
+
+
+<!-- ARTWORK 04 -->
+
+<article class="frame">
+
+<img src="art/art04.jpg"
+     alt="Visual Poetry">
+
+<div class="label">
+
+<span>04</span>
+
+<div>
+
+<strong>
+Visual Poetry
+</strong>
+
+<small>
+Illustration combined with handwritten narrative.
+</small>
+
+</div>
+
+</div>
+
+</article>
+
+
+
+<!-- ARTWORK 05 -->
+
+<article class="frame">
+
+<img src="art/art05.jpg"
+     alt="HANASHIN Name Study">
+
+<div class="label">
+
+<span>05</span>
+
+<div>
+
+<strong>
+HANASHIN — Name Study
+</strong>
+
+<small>
+Experimental lettering and personal identity design.
+</small>
+
+</div>
+
+</div>
+
+</article>
+
+
+
+<!-- ARTWORK 06 -->
+
+<article class="frame">
+
+<img src="art/art06.jpg"
+     alt="Character Study">
+
+<div class="label">
+
+<span>06</span>
+
+<div>
+
+<strong>
+Character Study
+</strong>
+
+<small>
+Colour illustration with expressive linework.
+</small>
+
+</div>
+
+</div>
+
+</article>
+
+
+
+<!-- ARTWORK 07 -->
+
+<article class="frame">
+
+<img src="art/art07.jpg"
+     alt="Out of Ordinary">
+
+<div class="label">
+
+<span>07</span>
+
+<div>
+
+<strong>
+Out of Ordinary
+</strong>
+
+<small>
+Conceptual typography and illustration.
+</small>
+
+</div>
+
+</div>
+
+</article>
+
+
+
+<!-- ARTWORK 08 -->
+
+<article class="frame">
+
+<img src="art/art08.jpg"
+     alt="IEEC Visual Composition">
+
+<div class="label">
+
+<span>08</span>
+
+<div>
+
+<strong>
+IEEC — Visual Composition
+</strong>
+
+<small>
+Editorial-style composition inspired by music and movement.
+</small>
+
+</div>
+
+</div>
+
+</article>
+
+
+
+<!-- ARTWORK 09 -->
+
+<article class="frame">
+
+<img src="art/art09.jpg"
+     alt="Abstract Gravity">
+
+<div class="label">
+
+<span>09</span>
+
+<div>
+
+<strong>
+Abstract Gravity
+</strong>
+
+<small>
+Paint texture, typography and a physics-inspired thought.
+</small>
+
+</div>
+
+</div>
+
+</article>
+
+
+
+<!-- ARTWORK 10 -->
+
+<article class="frame">
+
+<img src="art/art10.jpg"
+     alt="Sketchbook">
+
+<div class="label">
+
+<span>10</span>
+
+<div>
+
+<strong>
+Sketchbook — Untitled
+</strong>
+
+<small>
+A sketchbook experiment — line, form and imagination.
+</small>
+
+</div>
+
+</div>
+
+</article>
+
+
+</div>
+
+</section>
+
+
+<section class="outro">
+
+<div>
+
+<h2>
+MAKE IT<br>
+<em>BY HAND.</em><br>
+MAKE IT YOURS.
+</h2>
+
+<p>
+These are experiments, not finished answers.
+The archive keeps growing as the sketchbook does.
+</p>
+
+</div>
+
+</section>
+
+
+<footer>
+
+<span>
+© HANASHIN — VISUAL ARCHIVE
+</span>
+
+<a href="index.html">
+BACK TO MAIN PORTFOLIO ↑
+</a>
+
+</footer>
+
+</body>
+  </html>
